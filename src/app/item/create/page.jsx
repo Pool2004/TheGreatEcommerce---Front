@@ -11,11 +11,11 @@ export default function Home() {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log("producto nuevo: >>>>", { name, description, img });
+    console.log("articulo nuevo: >>>>", { name, description, img });
   };
   return (
     <main>
-      <h1 className="text-3xl font-bold text-center ">Crear producto</h1>
+      <h1 className="text-3xl font-bold text-center ">Crear Artículo</h1>
       <form onSubmit={handleOnSubmit} className="w-full mb-7">
         <Input
           label={"Nombre"}
