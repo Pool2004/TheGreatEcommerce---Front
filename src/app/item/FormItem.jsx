@@ -1,6 +1,6 @@
 "use client";
-import Input from "@/app/components/Input";
-import useForm from "@/app/customHooks/useForm";
+import Input from "@/components/Input";
+import useForm from "@/customHooks/useForm";
 
 /**
  * @description component that show the form item
