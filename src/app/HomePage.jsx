@@ -4,7 +4,6 @@ import items from "../mockdata/items.json";
 import ItemCard from "@/components/ItemCard";
 
 const HomePage = () => {
-  console.log(items);
   return (
     <main>
       <ul>
