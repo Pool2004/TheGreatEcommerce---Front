@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "descripcion": "Soy un camiseta",
+    "nombre": "Camiseta",
+    "precio": 20000,
+    "cantidad": 10,
+    "idCategoria": 1
+  },
+  {
+    "id": 2,
+    "descripcion": "Soy un pantaloneta",
+    "nombre": "Pantaloneta",
+    "precio": 30000,
+    "cantidad": 20,
+    "idCategoria": 2
+  },
+  {
+    "id": 3,
+    "descripcion": "Soy un Termo",
+    "nombre": "Termo",
+    "precio": 40000,
+    "cantidad": 5,
+    "idCategoria": 4
+  }
+]
