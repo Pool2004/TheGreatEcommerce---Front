@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <main>
-      <h1>Catalogo</h1>
+      <h1>Catálogo</h1>
     </main>
   );
 }
