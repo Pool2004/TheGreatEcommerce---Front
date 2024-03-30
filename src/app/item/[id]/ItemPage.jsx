@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import items from "../../../mockdata/items.json";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { addToCart } from "@/redux/slice/cartSlice";
 
 const getItem = (id) => {
   return items.find((item) => item.id === parseInt(id));
@@ -10,6 +12,8 @@ const getItem = (id) => {
 const ItemPage = ({ id }) => {
   const [item, setItem] = useState(null);
   const [quantity, setQuantity] = useState(0);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setItem(getItem(id));
@@ -46,8 +50,13 @@ const ItemPage = ({ id }) => {
     }
   };
 
-  const addToCart = () => {
-    console.log("agregando");
+  const addItemToCart = () => {
+    if (quantity > 0) {
+      const newItem = { ...item };
+      newItem.cantidad = quantity;
+      console.log(newItem);
+      dispatch(addToCart(newItem));
+    }
   };
 
   if (!item) {
@@ -80,7 +89,7 @@ const ItemPage = ({ id }) => {
       </div>
       <button
         className="bg-indigo-600 text-white border-none font-medium rounded py-2 px-3 w-full"
-        onClick={addToCart}
+        onClick={addItemToCart}
       >
         comprar
       </button>
