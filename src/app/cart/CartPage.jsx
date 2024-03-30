@@ -9,7 +9,7 @@ const CartPage = () => {
   return (
     <main className="gx tv arh asp aur cez cxg dde">
       <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">
-        Shopping cart
+        Carrito de compra
       </h2>
       {items.length === 0 ? (
         <section>
