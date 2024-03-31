@@ -5,7 +5,7 @@ import ItemCard from "@/components/ItemCard";
 
 const HomePage = () => {
   return (
-    <main className="p-6">
+    <main className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 lg:py-20">
       <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         {items.map((item) => (
           <li key={item.id}>

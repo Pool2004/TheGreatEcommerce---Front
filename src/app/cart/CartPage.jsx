@@ -7,7 +7,7 @@ const CartPage = () => {
   const { items, total } = useAppSelector((state) => state.cart);
 
   return (
-    <main className={"px-10 py-8"}>
+    <main className="mx-auto max-w-7xl p-6 lg:px-8 lg:py-20">
       <h1 className="border-b border-gray-100 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl mb-6 pb-6">
         Carrito de compra
       </h1>
