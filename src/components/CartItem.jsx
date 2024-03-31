@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const CartItem = ({ item }) => {
@@ -18,7 +19,7 @@ const CartItem = ({ item }) => {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <a href="#">{item.nombre}</a>
+              <Link href={"/item/"+item.id}>{item.nombre}</Link>
             </h3>
             <p className="ml-4">
               {new Intl.NumberFormat("es-CO", {

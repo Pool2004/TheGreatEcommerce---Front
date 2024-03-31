@@ -17,10 +17,10 @@ const ItemCard = ({ item }) => {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href="#">
+            <Link href={"/item/"+item.id}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {item.nombre}
-            </a>
+            </Link>
           </h3>
           <p className="mt-1 text-sm text-gray-500">categoria</p>
         </div>
