@@ -1,6 +1,7 @@
 import "./globals.css";
 import Provider from "../redux/Provider";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "The Great Ecommerce",
@@ -12,9 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Provider>
         <body>
-          <Header/>
+          <Header />
           {children}
-          </body>
+          <Footer />
+        </body>
       </Provider>
     </html>
   );
