@@ -20,8 +20,18 @@ export const cartSlice = createSlice({
       state.items = items;
       state.total = total;
     },
+    removeFromCart: (state, action) => {
+      const itemId = action.payload;
+      const newItems = state.items.filter((item) => item.id !== itemId);
+      let total = 0;
+      newItems.forEach((item) => {
+        total += item.precio;
+      });
+      state.items = newItems;
+      state.total = total;
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default createSlice.reducer;

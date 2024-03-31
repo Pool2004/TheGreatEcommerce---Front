@@ -1,8 +1,16 @@
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { removeFromCart } from "@/redux/slice/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const CartItem = ({ item }) => {
+  const dispatch = useAppDispatch();
+
+  const removeItemFromCart = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
   return (
     <>
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -19,7 +27,7 @@ const CartItem = ({ item }) => {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <Link href={"/item/"+item.id}>{item.nombre}</Link>
+              <Link href={"/item/" + item.id}>{item.nombre}</Link>
             </h3>
             <p className="ml-4">
               {new Intl.NumberFormat("es-CO", {
@@ -37,6 +45,7 @@ const CartItem = ({ item }) => {
             <button
               type="button"
               className="font-medium text-indigo-600 hover:text-indigo-500"
+              onClick={() => removeItemFromCart(item.id)}
             >
               Quitar
             </button>
