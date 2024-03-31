@@ -234,7 +234,7 @@ const ItemPage = ({ id }) => {
                             y1="100"
                             x2="100"
                             y2="0"
-                            vector-effect="non-scaling-stroke"
+                            vectorEffect="non-scaling-stroke"
                           />
                         </svg>
                       </span>

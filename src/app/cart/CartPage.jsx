@@ -7,10 +7,10 @@ const CartPage = () => {
   const { items, total } = useAppSelector((state) => state.cart);
 
   return (
-    <main className="gx tv arh asp aur cez cxg dde">
-      <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">
+    <main className={"px-10 py-8"}>
+      <h1 className="border-b border-gray-100 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl mb-6 pb-6">
         Carrito de compra
-      </h2>
+      </h1>
       {items.length === 0 ? (
         <section>
           <h3>Carrito vacio</h3>

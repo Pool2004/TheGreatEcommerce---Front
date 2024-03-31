@@ -1,10 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ItemCard = ({ item }) => {
+  const router = useRouter();
   return (
-    <Link className="group relative" href={"/item/" + item.id}>
+    <button
+      className="group relative"
+      onClick={() => router.push("/item/" + item.id)}
+    >
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <Image
           src="https://www.fivebranches.edu/wp-content/uploads/2021/08/default-image.jpg"
@@ -17,7 +22,7 @@ const ItemCard = ({ item }) => {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <Link href={"/item/"+item.id}>
+            <Link href={"/item/" + item.id}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {item.nombre}
             </Link>
@@ -32,7 +37,7 @@ const ItemCard = ({ item }) => {
           }).format(item.precio)}
         </p>
       </div>
-    </Link>
+    </button>
   );
 };
 
