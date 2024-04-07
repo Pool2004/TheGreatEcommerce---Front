@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { getCategoryLabel, getPriceInCOP } from "@/utils/utils";
 
 const ItemCard = ({ item }) => {
   const router = useRouter();
@@ -24,21 +25,14 @@ const ItemCard = ({ item }) => {
         />
       </div>
       <div className="mt-4 flex justify-between">
-        <div>
-          <h3 className="text-sm text-gray-700">
-            <Link href={"/item/" + item.idArticulo}>
-              <span aria-hidden="true" className="absolute inset-0"></span>
-              {item.nombre}
-            </Link>
-          </h3>
-          <p className="mt-1 text-sm text-gray-500 text-left">categoria</p>
+        <div className="text-left">
+          <h3 className="text-sm text-gray-700">{item.nombre}</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            {getCategoryLabel(item.idCategoria)}
+          </p>
         </div>
         <p className="text-sm font-medium text-gray-900">
-          {new Intl.NumberFormat("es-CO", {
-            maximumFractionDigits: 0,
-            style: "currency",
-            currency: "COP",
-          }).format(item.precio)}
+          {getPriceInCOP(item.precio)}
         </p>
       </div>
     </button>

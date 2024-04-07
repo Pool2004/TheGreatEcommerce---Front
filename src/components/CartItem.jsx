@@ -1,5 +1,6 @@
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { removeFromCart } from "@/redux/slice/cartSlice";
+import { getPriceInCOP } from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -29,13 +30,7 @@ const CartItem = ({ item }) => {
             <h3>
               <Link href={"/item/" + item.id}>{item.nombre}</Link>
             </h3>
-            <p className="ml-4">
-              {new Intl.NumberFormat("es-CO", {
-                maximumFractionDigits: 0,
-                style: "currency",
-                currency: "COP",
-              }).format(item.precio)}
-            </p>
+            <p className="ml-4">{getPriceInCOP(item.precio)}</p>
           </div>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">

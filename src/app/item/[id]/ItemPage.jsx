@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import items from "../../../mockdata/items.json";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { addToCart } from "@/redux/slice/cartSlice";
+import { getPriceInCOP } from "@/utils/utils";
 
 const getItem = (id) => {
   return items.find((item) => item.id === parseInt(id));
@@ -120,11 +121,7 @@ const ItemPage = ({ id }) => {
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">
-              {new Intl.NumberFormat("es-CO", {
-                maximumFractionDigits: 0,
-                style: "currency",
-                currency: "COP",
-              }).format(item.precio)}
+              {getPriceInCOP(item.precio)}
             </p>
 
             <div className="mt-10">
