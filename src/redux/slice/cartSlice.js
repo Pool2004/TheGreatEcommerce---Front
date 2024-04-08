@@ -12,14 +12,26 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       const newItem = action.payload;
       const items = state.items;
-      items.push(newItem);
       let total = 0;
+      const itemIndex = items.findIndex(
+        (item) => item.idArticulo === newItem.idArticulo
+      );
+      if (itemIndex === -1) {
+        newItem.cantidadComprar = 1;
+        items.push(newItem);
+      } else {
+        items[itemIndex].cantidadComprar += 1;
+      }
+
       items.forEach((item) => {
-        total += item.precio;
+        total += item.precio * item.cantidadComprar;
       });
+
       state.items = items;
       state.total = total;
+      console.log(total);
     },
+
     removeFromCart: (state, action) => {
       const itemId = action.payload;
       const newItems = state.items.filter((item) => item.id !== itemId);

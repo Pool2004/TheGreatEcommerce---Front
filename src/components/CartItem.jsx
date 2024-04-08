@@ -16,7 +16,7 @@ const CartItem = ({ item }) => {
     <>
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <Image
-          src="https://www.fivebranches.edu/wp-content/uploads/2021/08/default-image.jpg"
+          src={item.imagen}
           width={500}
           height={500}
           alt="Picture of the author"
@@ -34,7 +34,7 @@ const CartItem = ({ item }) => {
           </div>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
-          <p className="text-gray-500">Cantidad: {item.cantidad}</p>
+          <p className="text-gray-500">Cantidad: {item.cantidadComprar}</p>
 
           <div className="flex">
             <button

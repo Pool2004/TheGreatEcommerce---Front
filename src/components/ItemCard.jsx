@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCategoryLabel, getPriceInCOP } from "@/utils/utils";
 
