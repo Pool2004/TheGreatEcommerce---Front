@@ -2,10 +2,10 @@ import React from "react";
 
 export const Searchbar = () => {
   return (
-    <div className="flex p-2 text-gray-400 hover:text-gray-400 border border-gray-500 rounded">
+    <div className="flex items-center p-2 text-gray-400 hover:text-gray-400 border border-gray-500 rounded">
       <input
         type="text"
-        className="no-border"
+        className="no-border border-none focus:outline-none"
         onChange={() => console.log("cambiando")}
       />
       <svg
