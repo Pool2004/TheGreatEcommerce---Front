@@ -5,6 +5,7 @@ import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
 import useCategories from "@/customHooks/useCategories";
 import useForm from "@/customHooks/useForm";
+import useSizes from "@/customHooks/useSizes";
 
 /**
  * @description component that show the form item
@@ -12,6 +13,7 @@ import useForm from "@/customHooks/useForm";
  */
 const FormItem = () => {
   const { data: categories, error, loading } = useCategories();
+  const { data: sizes } = useSizes();
 
   const {
     name,
@@ -22,6 +24,7 @@ const FormItem = () => {
     onInputChange,
     category,
     isCustom,
+    size,
   } = useForm({
     name: "",
     description: "",
@@ -30,6 +33,7 @@ const FormItem = () => {
     quantity: 0,
     img: "",
     isCustom: false,
+    size: undefined,
   });
 
   /**
@@ -47,8 +51,11 @@ const FormItem = () => {
       cantidad: quantity,
       idCategoria: { idCategoria: category },
       esPersonalizable: isCustom,
+      talla: {
+        idTalla: size,
+      },
     };
-
+    console.log(newItem);
     try {
       const response = await fetch("http://localhost:8080/articulo/save", {
         method: "POST",
@@ -125,6 +132,15 @@ const FormItem = () => {
                     value={category}
                     onChange={onInputChange}
                     options={categories}
+                  />
+                </div>
+                <div className="sm:col-span-3">
+                  <Select
+                    label={"Talla:"}
+                    name="size"
+                    value={size}
+                    onChange={onInputChange}
+                    options={sizes}
                   />
                 </div>
                 <div className="col-span-full">
