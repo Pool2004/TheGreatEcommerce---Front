@@ -27,12 +27,12 @@ const FormItem = () => {
   } = useForm({
     name: "",
     description: "",
-    category: undefined,
+    category: 0,
     price: 0,
     quantity: 0,
     img: "",
     isCustom: false,
-    size: undefined,
+    size: 0,
   });
 
   /**

@@ -27,7 +27,7 @@ const Select = ({
           required={isRequired ? true : false}
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-full sm:text-sm sm:leading-6"
         >
-          <option selected value={0} disabled>
+          <option value={0} disabled>
             Selecciona una opcion
           </option>
           {options?.map((option) => (
