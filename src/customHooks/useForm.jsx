@@ -1,26 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useForm = (initialState) => {
-    const [formState, setFormState] = useState(initialState);
+  const [formState, setFormState] = useState(initialState);
 
-    const onInputChange = (event) => {
-        const { name, value } = event.currentTarget;
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
-    };
+  const onInputChange = (event, isACheckbox) => {
+    const { name, value, checked } = event.currentTarget;
+    console.log({ name, value, checked });
+    setFormState({
+      ...formState,
+      [name]: isACheckbox ? checked : value,
+    });
+  };
 
-    const onResetForm = () => {
-        setFormState(initialState);
-    };
+  const onResetForm = () => {
+    setFormState(initialState);
+  };
 
-    return {
-        ...formState,
-        formState,
-        onInputChange,
-        onResetForm,
-    };
+  return {
+    ...formState,
+    formState,
+    onInputChange,
+    onResetForm,
+  };
 };
 
 export default useForm;

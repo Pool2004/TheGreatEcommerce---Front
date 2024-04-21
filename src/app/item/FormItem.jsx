@@ -114,7 +114,7 @@ const FormItem = () => {
                     name="isCustom"
                     type={"checkbox"}
                     value={isCustom}
-                    onChange={onInputChange}
+                    onChange={(event) => onInputChange(event, true)}
                   />
                 </div>
                 <div className="sm:col-span-3">
