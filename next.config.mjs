@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: "www.fivebranches.edu",
       },
       { protocol: "https", hostname: "raw.githubusercontent.com" },
+      { protocol: "https", hostname: "github.com" },
     ],
   },
 };
