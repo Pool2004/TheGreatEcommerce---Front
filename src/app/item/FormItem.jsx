@@ -1,5 +1,4 @@
 "use client";
-import { getCategories } from "@/api/category";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
@@ -12,7 +11,7 @@ import useSizes from "@/customHooks/useSizes";
  * @returns Form Item Componet
  */
 const FormItem = () => {
-  const { data: categories, error, loading } = useCategories();
+  const { data: categories } = useCategories();
   const { data: sizes } = useSizes();
 
   const {
@@ -51,11 +50,11 @@ const FormItem = () => {
       cantidad: quantity,
       idCategoria: { idCategoria: category },
       esPersonalizable: isCustom,
-      talla: {
+      idTalla: {
         idTalla: size,
       },
     };
-    console.log(newItem);
+
     try {
       const response = await fetch("http://localhost:8080/articulo/save", {
         method: "POST",
@@ -96,6 +95,7 @@ const FormItem = () => {
                     name="name"
                     value={name}
                     onChange={onInputChange}
+                    isRequired={true}
                   />
                 </div>
                 <div className="sm:col-span-3">
@@ -105,6 +105,7 @@ const FormItem = () => {
                     type={"number"}
                     value={price}
                     onChange={onInputChange}
+                    isRequired={true}
                   />
                 </div>
                 <div className="sm:col-span-3">
@@ -123,6 +124,7 @@ const FormItem = () => {
                     value={quantity}
                     type={"number"}
                     onChange={onInputChange}
+                    isRequired={true}
                   />
                 </div>
                 <div className="sm:col-span-3">
@@ -149,6 +151,7 @@ const FormItem = () => {
                     name="description"
                     value={description}
                     onChange={onInputChange}
+                    isRequired={true}
                   />
                 </div>
                 <div className="col-span-full">
@@ -157,6 +160,7 @@ const FormItem = () => {
                     name="img"
                     value={img}
                     onChange={onInputChange}
+                    isRequired={true}
                   />
                 </div>
               </div>
