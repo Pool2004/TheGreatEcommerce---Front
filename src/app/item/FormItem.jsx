@@ -1,7 +1,9 @@
 "use client";
+import { getCategories } from "@/api/category";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
+import useCategories from "@/customHooks/useCategories";
 import useForm from "@/customHooks/useForm";
 
 /**
@@ -9,12 +11,8 @@ import useForm from "@/customHooks/useForm";
  * @returns Form Item Componet
  */
 const FormItem = () => {
-  const options = [
-    {
-      id: 1,
-      label: "Camisetas Hombre",
-    },
-  ];
+  const { data: categories, error, loading } = useCategories();
+
   const {
     name,
     description,
@@ -23,15 +21,15 @@ const FormItem = () => {
     img,
     onInputChange,
     category,
-    id,
+    isCustom,
   } = useForm({
-    id: 0,
     name: "",
     description: "",
-    category: options[0].id,
+    category: undefined,
     price: 0,
     quantity: 0,
     img: "",
+    isCustom: false,
   });
 
   /**
@@ -42,13 +40,13 @@ const FormItem = () => {
     event.preventDefault();
 
     const newItem = {
-      idArticulo: id,
       imagen: img,
       descripcion: description,
       nombre: name,
       precio: price,
       cantidad: quantity,
       idCategoria: { idCategoria: category },
+      esPersonalizable: isCustom,
     };
 
     try {
@@ -87,15 +85,6 @@ const FormItem = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <Input
-                    label={"Id:"}
-                    name="id"
-                    type={"number"}
-                    value={id}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="sm:col-span-3">
-                  <Input
                     label={"Nombre:"}
                     name="name"
                     value={name}
@@ -108,6 +97,15 @@ const FormItem = () => {
                     name="price"
                     type={"number"}
                     value={price}
+                    onChange={onInputChange}
+                  />
+                </div>
+                <div className="sm:col-span-3">
+                  <Input
+                    label={"El articulo es personalizable:"}
+                    name="isCustom"
+                    type={"checkbox"}
+                    value={isCustom}
                     onChange={onInputChange}
                   />
                 </div>
@@ -126,7 +124,7 @@ const FormItem = () => {
                     name="category"
                     value={category}
                     onChange={onInputChange}
-                    options={options}
+                    options={categories}
                   />
                 </div>
                 <div className="col-span-full">

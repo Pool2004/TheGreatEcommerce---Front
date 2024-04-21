@@ -20,6 +20,7 @@ const HomePage = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
