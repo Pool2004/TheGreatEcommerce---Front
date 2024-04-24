@@ -1,6 +1,7 @@
 "use client";
 import Input from "@/components/Input";
 import useForm from "@/customHooks/useForm";
+import Link from "next/link";
 import React from "react";
 
 const Login = () => {
@@ -53,7 +54,14 @@ const Login = () => {
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500"></p>
+        <p className="mt-10 text-center text-sm text-gray-500">
+          <Link
+            href="/backoffice/create-account"
+            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          >
+            Crear una cuenta
+          </Link>
+        </p>
       </div>
     </div>
   );
