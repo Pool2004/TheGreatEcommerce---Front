@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -21,6 +22,14 @@ const Footer = () => {
                   <div className="text-gray-500 hover:text-gray-600">
                     Ordenes
                   </div>
+                </li>
+                <li className="text-sm">
+                  <Link
+                    href={"/backoffice"}
+                    className="text-gray-500 hover:text-gray-600"
+                  >
+                    Iniciar sesion
+                  </Link>
                 </li>
               </ul>
             </div>
