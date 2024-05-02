@@ -35,7 +35,7 @@ const CheckoutPage = () => {
       const newOrden = {
         fecha: today,
         valorTotal: total,
-        idUsuario: 1,
+        idUsuario: {idUsuario:1},
       };
       const response = await fetch("http://localhost:8080/orden/save", {
         method: "POST",
