@@ -5,7 +5,6 @@ const useForm = (initialState) => {
 
   const onInputChange = (event, isACheckbox) => {
     const { name, value, checked } = event.currentTarget;
-    console.log({ name, value, checked });
     setFormState({
       ...formState,
       [name]: isACheckbox ? checked : value,
