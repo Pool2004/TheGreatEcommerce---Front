@@ -2,6 +2,7 @@
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import useForm from "@/customHooks/useForm";
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 const CheckoutPage = () => {
   const {
@@ -24,9 +25,39 @@ const CheckoutPage = () => {
     city: "",
     postalCode: "",
   });
+
+  const { total } = useAppSelector((state) => state.cart);
+
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const newOrden = {
+        fecha: today,
+        valorTotal: total,
+        idUsuario: 1,
+      };
+      const response = await fetch("http://localhost:8080/orden/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...newOrden }),
+      });
+
+      // Verificar el estado de la respuesta
+      if (response.ok && response.status === 200) {
+        console.log("Usuario creado con exito", response);
+      } else {
+        console.log("algo paso");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
+  };
   return (
     <main className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 lg:py-20">
-      <form className="w-full">
+      <form className="w-full" onSubmit={handleOnSubmit}>
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Informacion de envio
@@ -111,6 +142,12 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
+        <button
+          type="submit"
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Comprar
+        </button>
       </form>
     </main>
   );
