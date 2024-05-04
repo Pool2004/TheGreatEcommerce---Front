@@ -19,6 +19,7 @@ const mapCategories = (categories) => {
       label: `${category.tipoRopa} ${
         category.tipoSexo === "M" ? "Hombre" : "Mujer"
       }`,
+      name: category.tipoRopa,
     };
   });
   return newCategories;
