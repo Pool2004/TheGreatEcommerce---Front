@@ -1,14 +1,44 @@
 "use client";
 import Input from "@/components/Input";
 import useForm from "@/customHooks/useForm";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { login } from "@/redux/slice/userSlice";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { redirectUserTo } from "@/utils/utils";
 
 const Login = () => {
   const { email, password, onInputChange } = useForm({
     email: "",
     password: "",
   });
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleOnSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const response = await fetch("http://localhost:8080/usuario/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ correo: email, contrasenia: password }),
+      });
+
+      // Verificar el estado de la respuesta
+      if (response.ok && response.status === 200) {
+        const user = await response.json();
+        await dispatch(login(user));
+        router.push(redirectUserTo(user.rol));
+      } else {
+        console.log("algo paso");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
+  };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -19,7 +49,12 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleOnSubmit}
+        >
           <div>
             <Input
               label={"Correo electrónico"}

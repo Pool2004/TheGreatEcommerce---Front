@@ -15,4 +15,14 @@ const getCategoryLabel = (category) => {
   return getCategory(category).label;
 };
 
-export { getPriceInCOP, getCategory, getCategoryLabel };
+const redirectUserTo = (rol) => {
+  let path = "/";
+  if (rol === "Encargado") {
+    path = "/backoffice/manager";
+  } else if (rol === "Diseniador") {
+    path = "/backoffice/designer";
+  }
+  return path;
+};
+
+export { getPriceInCOP, getCategory, getCategoryLabel, redirectUserTo };
