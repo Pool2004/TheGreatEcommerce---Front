@@ -12,6 +12,7 @@ const useCategories = () => {
         const result = await getCategories();
         setData(mapCategories(result));
       } catch (error) {
+        setData([]);
         setError(error);
       } finally {
         setIsLoading(false);

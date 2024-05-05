@@ -29,7 +29,6 @@ export const cartSlice = createSlice({
 
       state.items = items;
       state.total = total;
-      console.log(total);
     },
 
     removeFromCart: (state, action) => {
