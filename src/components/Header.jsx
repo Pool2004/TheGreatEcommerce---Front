@@ -26,7 +26,29 @@ const Header = () => {
         </Link>
         {/* <Searchbar /> */}
         <div className="flex">
-          <Link href={"/cart"} className="group -m-2 flex items-center p-2">
+          {user === null ? (
+            <button
+              type="button"
+              className=" rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() => router.push("/backoffice")}
+            >
+              Iniciar Sesion
+            </button>
+          ) : (
+            <div className="flex">
+              <div className="flex flex-col">
+                <div>{user.name}</div>
+                <div className="text-xs">{user.rol}</div>
+              </div>
+              <button className="ml-3 font-bold" onClick={handleLogout}>
+                Cerrar sesión
+              </button>
+            </div>
+          )}
+          <Link
+            href={"/cart"}
+            className="group -m-2 flex items-center p-2 ml-3"
+          >
             <svg
               className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
               fill="none"
@@ -46,22 +68,6 @@ const Header = () => {
             </span>
             <span className="sr-only">items in cart, view bag</span>
           </Link>
-          {user === null ? (
-            <button
-              type="button"
-              className="ml-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={() => router.push("/backoffice")}
-            >
-              Iniciar Sesion
-            </button>
-          ) : (
-            <div className="flex ml-3">
-              <div>{user.name}</div>
-              <button className="ml-3" onClick={handleLogout}>
-                Cerrar sesión
-              </button>
-            </div>
-          )}
         </div>
       </nav>
     </header>
