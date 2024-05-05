@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { logout } from "@/redux/slice/userSlice";
 
 const Header = () => {
-  const { items } = useAppSelector((state) => state.cart);
+  const { totalItems } = useAppSelector((state) => state.cart);
   const user = useAppSelector((state) => state.user);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -64,7 +64,7 @@ const Header = () => {
               />
             </svg>
             <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-              {items.length}
+              {totalItems}
             </span>
             <span className="sr-only">items in cart, view bag</span>
           </Link>
