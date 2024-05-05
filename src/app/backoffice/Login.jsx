@@ -30,8 +30,10 @@ const Login = () => {
       // Verificar el estado de la respuesta
       if (response.ok && response.status === 200) {
         const user = await response.json();
-        await dispatch(login(user));
-        router.push(redirectUserTo(user.rol));
+        if (user) {
+          await dispatch(login(user));
+          router.push(redirectUserTo(user.rol));
+        }
       } else {
         console.log("algo paso");
       }

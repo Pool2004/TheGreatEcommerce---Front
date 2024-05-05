@@ -1,13 +1,20 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks/hooks";
-import Link from "next/link";
 import React from "react";
-import { Searchbar } from "./Searchbar";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { logout } from "@/redux/slice/userSlice";
 
 const Header = () => {
   const { items } = useAppSelector((state) => state.cart);
+  const user = useAppSelector((state) => state.user);
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className="bg-white border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -39,13 +46,22 @@ const Header = () => {
             </span>
             <span className="sr-only">items in cart, view bag</span>
           </Link>
-          <button
-            type="button"
-            className="ml-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            onClick={() => router.push("/backoffice")}
-          >
-            Iniciar Sesion
-          </button>
+          {user === null ? (
+            <button
+              type="button"
+              className="ml-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() => router.push("/backoffice")}
+            >
+              Iniciar Sesion
+            </button>
+          ) : (
+            <div className="flex ml-3">
+              <div>{user.name}</div>
+              <button className="ml-3" onClick={handleLogout}>
+                Cerrar sesión
+              </button>
+            </div>
+          )}
         </div>
       </nav>
     </header>

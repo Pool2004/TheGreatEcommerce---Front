@@ -8,6 +8,7 @@ export const userSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const user = action.payload;
+      console.log("user>>>", user);
       const newUser = {};
       newUser.id = user.idUsuario;
       newUser.email = user.correo;
