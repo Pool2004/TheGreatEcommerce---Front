@@ -35,7 +35,7 @@ const CheckoutPage = () => {
       const newOrden = {
         fecha: today,
         valorTotal: total,
-        idUsuario: {idUsuario:1},
+        idUsuario: { idUsuario: 1 },
       };
       const response = await fetch("http://localhost:8080/orden/save", {
         method: "POST",
@@ -47,7 +47,7 @@ const CheckoutPage = () => {
 
       // Verificar el estado de la respuesta
       if (response.ok && response.status === 200) {
-        console.log("Usuario creado con exito", response);
+        console.log("Orden creada con exito", response);
       } else {
         console.log("algo paso");
       }

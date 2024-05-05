@@ -48,35 +48,6 @@ const ItemPage = ({ id }) => {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <Image
-                src="https://www.fivebranches.edu/wp-content/uploads/2021/08/default-image.jpg"
-                width={500}
-                height={500}
-                alt="Picture of the author"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <Image
-                src="https://www.fivebranches.edu/wp-content/uploads/2021/08/default-image.jpg"
-                width={500}
-                height={500}
-                alt="Picture of the author"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <Image
-              src="https://www.fivebranches.edu/wp-content/uploads/2021/08/default-image.jpg"
-              width={500}
-              height={500}
-              alt="Picture of the author"
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
         </div>
 
         {/* <!-- Product info --> */}
