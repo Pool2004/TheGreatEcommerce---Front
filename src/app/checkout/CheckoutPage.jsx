@@ -1,6 +1,8 @@
 "use client";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
+import useDeparments from "@/customHooks/useDeparments";
+import useCities from "@/customHooks/useCities";
 import useForm from "@/customHooks/useForm";
 import { useAppSelector } from "@/redux/hooks/hooks";
 
@@ -21,10 +23,12 @@ const CheckoutPage = () => {
     email: "",
     country: 1,
     address: "",
-    state: "",
-    city: "",
+    state: 1,
+    city: 1,
     postalCode: "",
   });
+  const { data: deparments } = useDeparments();
+  const { data: cities } = useCities({ state: parseInt(state) });
 
   const { total } = useAppSelector((state) => state.cart);
 
@@ -115,20 +119,22 @@ const CheckoutPage = () => {
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <Input
+              <Select
                 label={"Departamento:"}
                 name="state"
                 value={state}
                 onChange={onInputChange}
+                options={deparments}
               />
             </div>
 
             <div className="sm:col-span-2">
-              <Input
+              <Select
                 label={"Ciudad:"}
                 name="city"
                 value={city}
                 onChange={onInputChange}
+                options={cities}
               />
             </div>
 

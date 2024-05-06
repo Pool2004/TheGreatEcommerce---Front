@@ -30,11 +30,13 @@ const Select = ({
           <option value={0} disabled>
             Selecciona una opcion
           </option>
-          {options?.map((option) => (
-            <option value={option.id} key={"categoria_" + option.id}>
-              {option.label}
-            </option>
-          ))}
+          {options?.map((option) => {
+            return (
+              <option value={option.id} key={name + "_" + option.id}>
+                {option.label}
+              </option>
+            );
+          })}
         </select>
       </div>
     </>
