@@ -3,9 +3,29 @@ import Input from "@/components/Input";
 import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
 import useForm from "@/customHooks/useForm";
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 const CreateAccount = () => {
-  const { name, email, password, phone, address, gender, id, onInputChange } =
+  const rols = [
+    {
+      id: "Encargado",
+      label: "Encargado",
+    },
+    {
+      id: "Administrador",
+      label: "Administrador",
+    },
+    {
+      id: "Diseniador",
+      label: "Diseniador",
+    },
+    {
+      id: "Cliente",
+      label: "Cliente",
+    },
+  ];
+
+  const { name, email, password, phone, rol, gender, id, onInputChange } =
     useForm({
       name: "",
       email: "",
@@ -13,7 +33,10 @@ const CreateAccount = () => {
       phone: 0,
       gender: "M",
       id: 0,
+      rol: "Cliente",
     });
+
+  const user = useAppSelector((state) => state.user);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -22,7 +45,7 @@ const CreateAccount = () => {
         nombre: name,
         telefono: phone,
         correo: email,
-        rol: "Encargado",
+        rol: rol,
         sexo: gender,
         identificacion: id,
         contrasenia: password,
@@ -109,6 +132,18 @@ const CreateAccount = () => {
                     ]}
                   />
                 </div>
+
+                {user && user.rol === 'Administrador' ? (
+                  <div className="sm:col-span-3">
+                    <Select
+                      label={"Rol:"}
+                      name="rol"
+                      value={rol}
+                      onChange={onInputChange}
+                      options={rols}
+                    />
+                  </div>
+                ) : null}
 
                 <div className="col-span-3">
                   <Input

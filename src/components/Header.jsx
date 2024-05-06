@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
@@ -15,12 +15,8 @@ const Header = () => {
     dispatch(logout());
   };
 
-  // useEffect(() => {
-  //   if(user.rol===)
-  // }, [user]);
-
   return (
-    <header className="bg-white border">
+    <header className="bg-white border fixed w-full z-10">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <Link
           className="text-sm font-semibold leading-6 text-gray-900"
