@@ -1,3 +1,5 @@
-export default function ManagerPage() {
-  return <h1>Encargardo</h1>;
+import ManagerPage from "./ManagerPage";
+
+export default function Manager() {
+  return <ManagerPage />;
 }

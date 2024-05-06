@@ -17,6 +17,7 @@ const getCategoryLabel = (category) => {
 
 const redirectUserTo = (rol) => {
   let path = "/";
+
   if (rol === "Encargado") {
     path = "/backoffice/manager";
   } else if (rol === "Diseniador") {

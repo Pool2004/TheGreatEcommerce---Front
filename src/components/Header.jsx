@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
@@ -14,6 +14,10 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  // useEffect(() => {
+  //   if(user.rol===)
+  // }, [user]);
 
   return (
     <header className="bg-white border">
