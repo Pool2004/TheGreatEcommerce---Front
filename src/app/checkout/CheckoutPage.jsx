@@ -15,7 +15,7 @@ const CheckoutPage = () => {
     address,
     state,
     city,
-    postalCode,
+    delivery,
     onInputChange,
   } = useForm({
     name: "",
@@ -25,22 +25,31 @@ const CheckoutPage = () => {
     address: "",
     state: 1,
     city: 1,
-    postalCode: "",
+    delivery: 1,
   });
   const { data: deparments } = useDeparments();
   const { data: cities } = useCities({ state: parseInt(state) });
 
-  const { total } = useAppSelector((state) => state.cart);
+  const { total, items } = useAppSelector((state) => state.cart);
+  const user = useAppSelector((state) => state.user);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
       const today = new Date().toISOString().slice(0, 10);
+      console.log(items)
       const newOrden = {
         fecha: today,
         valorTotal: total,
-        idUsuario: { idUsuario: 1 },
+        direccion: "Lopez",
+        idDepartamento: {
+          idDepartamento: 2,
+        },
+        tipoEntrega: "Domicilio",
+        idUsuario: { idUsuario: user.id },
+        idArticulo: items.map(item=> item.idArticulo),
       };
+      console.log(newOrden)
       const response = await fetch("http://localhost:8080/orden/save", {
         method: "POST",
         headers: {
@@ -139,11 +148,18 @@ const CheckoutPage = () => {
             </div>
 
             <div className="sm:col-span-2">
-              <Input
-                label={"Codigo postal:"}
-                name="postalCode"
-                value={postalCode}
+            <Select
+                label={"Tipo de entrega:"}
+                name="delivery"
+                value={delivery}
                 onChange={onInputChange}
+                options={[{
+                  id: 'Domicilio',
+                  label: "Domicilio",
+                },{
+                  id: 'Contraentrega',
+                  label: "Domicilio",
+                }]}
               />
             </div>
           </div>
