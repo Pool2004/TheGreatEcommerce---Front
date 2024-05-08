@@ -37,7 +37,7 @@ const CheckoutPage = () => {
     event.preventDefault();
     try {
       const today = new Date().toISOString().slice(0, 10);
-      console.log(items)
+
       const newOrden = {
         fecha: today,
         valorTotal: total,
@@ -47,9 +47,11 @@ const CheckoutPage = () => {
         },
         tipoEntrega: "Domicilio",
         idUsuario: { idUsuario: user.id },
-        idArticulo: items.map(item=> item.idArticulo),
+        idArticulo: items.map((item) => {
+          return { idArticulo: item.idArticulo, cantidad:item.cantidadComprar };
+        }),
       };
-      console.log(newOrden)
+
       const response = await fetch("http://localhost:8080/orden/save", {
         method: "POST",
         headers: {
@@ -148,18 +150,21 @@ const CheckoutPage = () => {
             </div>
 
             <div className="sm:col-span-2">
-            <Select
+              <Select
                 label={"Tipo de entrega:"}
                 name="delivery"
                 value={delivery}
                 onChange={onInputChange}
-                options={[{
-                  id: 'Domicilio',
-                  label: "Domicilio",
-                },{
-                  id: 'Contraentrega',
-                  label: "Domicilio",
-                }]}
+                options={[
+                  {
+                    id: "Domicilio",
+                    label: "Domicilio",
+                  },
+                  {
+                    id: "Contraentrega",
+                    label: "Domicilio",
+                  },
+                ]}
               />
             </div>
           </div>
