@@ -43,7 +43,9 @@ const CheckoutPage = () => {
         valorTotal: total,
         direccion: "Lopez",
         idDepartamento: {
-          idDepartamento: 2,
+          idDepartamento: state,
+        },idCiudad: {
+          idCiudad: city,
         },
         tipoEntrega: "Domicilio",
         idUsuario: { idUsuario: user.id },
