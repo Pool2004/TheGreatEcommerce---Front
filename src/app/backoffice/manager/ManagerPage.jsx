@@ -82,7 +82,7 @@ const ManagerPage = () => {
                   </td>
                   <td className="px-6 py-4">
                     <Link
-                      href="/backoffice/order/1"
+                      href={"/backoffice/order/" + order.idOrden}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Editar

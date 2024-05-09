@@ -38,7 +38,12 @@ const Header = () => {
             <div className="flex">
               <div className="flex flex-col">
                 <div>{user.name}</div>
-                <div className="text-xs">{user.rol}</div>
+                <Link
+                  href={user.rol === "Encargado" ? "/backoffice/manager" : ""}
+                  className="text-xs"
+                >
+                  {user.rol}
+                </Link>
               </div>
               <button className="ml-3 font-bold" onClick={handleLogout}>
                 Cerrar sesión
