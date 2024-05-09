@@ -8,8 +8,8 @@ import React from "react";
 const CartItem = ({ item }) => {
   const dispatch = useAppDispatch();
 
-  const removeItemFromCart = (id) => {
-    dispatch(removeFromCart(id));
+  const removeItemFromCart = () => {
+    dispatch(removeFromCart(item.idArticulo));
   };
 
   const handleItemQuantity = (event) => {
@@ -64,7 +64,7 @@ const CartItem = ({ item }) => {
             <button
               type="button"
               className="font-medium text-indigo-600 hover:text-indigo-500"
-              onClick={() => removeItemFromCart(item.id)}
+              onClick={removeItemFromCart}
             >
               Quitar
             </button>

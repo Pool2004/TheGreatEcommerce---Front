@@ -40,13 +40,23 @@ export const cartSlice = createSlice({
 
     removeFromCart: (state, action) => {
       const itemId = action.payload;
-      const newItems = state.items.filter((item) => item.id !== itemId);
+
+      const items = state.items;
       let total = 0;
-      newItems.forEach((item) => {
-        total += item.precio;
+      let totalItems = 0;
+
+      const itemIndex = items.findIndex((item) => item.idArticulo === itemId);
+
+      items.splice(itemIndex, 1);
+
+      items.forEach((item) => {
+        total += item.precio * item.cantidadComprar;
+        totalItems += item.cantidadComprar;
       });
-      state.items = newItems;
+
+      state.items = items;
       state.total = total;
+      state.totalItems = totalItems;
     },
 
     modifyItemQuantity: (state, action) => {
