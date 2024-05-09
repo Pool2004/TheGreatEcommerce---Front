@@ -3,9 +3,11 @@ import { useAppSelector } from "@/redux/hooks/hooks";
 import { getPriceInCOP } from "@/utils/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const ManagerPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
   const user = useAppSelector((state) => state.user);
   const router = useRouter();
 
@@ -18,6 +20,24 @@ const ManagerPage = () => {
   if (!user) {
     return null;
   }
+
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/orden/get/all");
+      const jsonData = await response.json();
+
+      setOrders(jsonData);
+    } catch (error) {
+      console.error("Error eeee:", error);
+      setItems([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <main className="mx-auto flex flex-col max-w-7xl items-center justify-between p-6 lg:px-8 lg:py-20">
@@ -46,25 +66,31 @@ const ManagerPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                1
-              </th>
-              <td className="px-6 py-4">Nicolas Londono</td>
-              <td className="px-6 py-4">2024-05-01</td>
-              <td className="px-6 py-4">{getPriceInCOP(120000)}</td>
-              <td className="px-6 py-4">
-                <Link
-                  href="/backoffice/order/1"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Editar
-                </Link>
-              </td>
-            </tr>
+            {orders.map((order) => {
+              return (
+                <tr key={"order_" + order.idOrden}>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                    {order.idOrden}
+                  </th>
+                  <td className="px-6 py-4">{order.idUsuario.correo}</td>
+                  <td className="px-6 py-4">{order.fecha}</td>
+                  <td className="px-6 py-4">
+                    {getPriceInCOP(order.valorTotal)}
+                  </td>
+                  <td className="px-6 py-4">
+                    <Link
+                      href="/backoffice/order/1"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Editar
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </section>
