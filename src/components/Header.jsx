@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border fixed w-full z-10">
+    <header className="bg-white border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <Link
           className="text-sm font-semibold leading-6 text-gray-900"
