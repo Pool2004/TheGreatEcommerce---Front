@@ -41,16 +41,20 @@ const CheckoutPage = () => {
       const newOrden = {
         fecha: today,
         valorTotal: total,
-        direccion: "Lopez",
+        direccion: address,
         idDepartamento: {
           idDepartamento: state,
-        },idCiudad: {
+        },
+        idCiudad: {
           idCiudad: city,
         },
-        tipoEntrega: "Domicilio",
+        tipoEntrega: delivery,
         idUsuario: { idUsuario: user.id },
         idArticulo: items.map((item) => {
-          return { idArticulo: item.idArticulo, cantidad:item.cantidadComprar };
+          return {
+            idArticulo: item.idArticulo,
+            cantidad: item.cantidadComprar,
+          };
         }),
       };
 
@@ -164,7 +168,7 @@ const CheckoutPage = () => {
                   },
                   {
                     id: "Contraentrega",
-                    label: "Domicilio",
+                    label: "Contraentrega",
                   },
                 ]}
               />
