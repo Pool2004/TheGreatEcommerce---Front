@@ -7,6 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { redirectUserTo } from "@/utils/utils";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { email, password, onInputChange } = useForm({
@@ -30,15 +31,17 @@ const Login = () => {
       // Verificar el estado de la respuesta
       if (response.ok && response.status === 200) {
         const user = await response.json();
-        if (user) {
+        if (user && user !== null) {
           await dispatch(login(user));
           router.push(redirectUserTo(user.rol));
+        } else {
+          throw new Error("El usuario no existe");
         }
       } else {
-        console.log("algo paso");
+        throw new Error("Problemas para iniciar sesion");
       }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
+      toast.error(error.message);
     }
   };
 

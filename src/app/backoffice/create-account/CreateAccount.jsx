@@ -1,9 +1,10 @@
 "use client";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import TextArea from "@/components/TextArea";
 import useForm from "@/customHooks/useForm";
 import { useAppSelector } from "@/redux/hooks/hooks";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const CreateAccount = () => {
   const rols = [
@@ -25,18 +26,38 @@ const CreateAccount = () => {
     },
   ];
 
-  const { name, email, password, phone, rol, gender, id, onInputChange } =
+  const { name, email, id, password, phone, rol, gender, onInputChange } =
     useForm({
       name: "",
       email: "",
       password: "",
+      id: "",
       phone: 0,
       gender: "M",
-      id: 0,
       rol: "Cliente",
     });
 
+  const router = useRouter();
   const user = useAppSelector((state) => state.user);
+
+  const validateInputValue = (newUser) => {
+    let message = "";
+    let areValid = true;
+    if (newUser.nombre === "") {
+      message = "Por favor ingrese un nombre";
+      areValid = false;
+    } else if (newUser.correo === "") {
+      message = "Por favor ingrese un correo";
+      areValid = false;
+    } else if (newUser.contrasenia === "") {
+      message = "Por favor ingrese un contrasena";
+      areValid = false;
+    } else if (newUser.telefono === 0) {
+      message = "Por favor ingrese un telefono";
+      areValid = false;
+    }
+    return { message, areValid };
+  };
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -50,22 +71,30 @@ const CreateAccount = () => {
         identificacion: id,
         contrasenia: password,
       };
-      const response = await fetch("http://localhost:8080/usuario/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...newUser }),
-      });
 
-      // Verificar el estado de la respuesta
-      if (response.ok && response.status === 200) {
-        console.log("Usuario creado con exito", response);
+      const areValuesValid = validateInputValue(newUser);
+
+      if (!areValuesValid.areValid) {
+        toast.error(areValuesValid.message);
       } else {
-        console.log("algo paso");
+        const response = await fetch("http://localhost:8080/usuario/save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...newUser }),
+        });
+
+        const messsage = await response.text();
+        // Verificar el estado de la respuesta
+        if (response.ok && response.status === 200) {
+          toast.success(messsage);
+        } else {
+          throw new Error("Problemas para crear la cuenta");
+        }
       }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
+      toast.error(error.messsage);
     }
   };
 
@@ -133,7 +162,7 @@ const CreateAccount = () => {
                   />
                 </div>
 
-                {user && user.rol === 'Administrador' ? (
+                {user && user.rol === "Administrador" ? (
                   <div className="sm:col-span-3">
                     <Select
                       label={"Rol:"}
@@ -162,6 +191,7 @@ const CreateAccount = () => {
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => router.push("/backoffice")}
           >
             Cancelar
           </button>
