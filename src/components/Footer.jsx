@@ -28,7 +28,7 @@ const Footer = () => {
                     href={"/backoffice"}
                     className="text-gray-500 hover:text-gray-600"
                   >
-                    Iniciar sesion
+                    Iniciar sesión
                   </Link>
                 </li>
               </ul>

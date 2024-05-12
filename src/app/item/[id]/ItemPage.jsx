@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { addToCart } from "@/redux/slice/cartSlice";
 import { getCategoryLabel, getPriceInCOP } from "@/utils/utils";
+import toast from "react-hot-toast";
 
 const ItemPage = ({ id }) => {
   const [item, setItem] = useState(null);
@@ -16,7 +17,7 @@ const ItemPage = ({ id }) => {
       const jsonData = await response.json();
       setItem(jsonData);
     } catch (error) {
-      console.error("Error eeee:", error);
+      console.error(error);
     }
   };
 
@@ -27,6 +28,7 @@ const ItemPage = ({ id }) => {
   const addItemToCart = () => {
     const newItem = { ...item };
     dispatch(addToCart(newItem));
+    toast.success("Articulo agregado al carrito");
   };
 
   if (!item) {

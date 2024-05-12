@@ -5,11 +5,12 @@ import useDeparments from "@/customHooks/useDeparments";
 import useCities from "@/customHooks/useCities";
 import useForm from "@/customHooks/useForm";
 import { useAppSelector } from "@/redux/hooks/hooks";
+import { useEffect } from "react";
 
 const CheckoutPage = () => {
+  const user = useAppSelector((state) => state.user);
   const {
     name,
-    lastname,
     email,
     country,
     address,
@@ -17,9 +18,9 @@ const CheckoutPage = () => {
     city,
     delivery,
     onInputChange,
+    setFormValues,
   } = useForm({
     name: "",
-    lastname: "",
     email: "",
     country: 1,
     address: "",
@@ -31,7 +32,6 @@ const CheckoutPage = () => {
   const { data: cities } = useCities({ state: parseInt(state) });
 
   const { total, items } = useAppSelector((state) => state.cart);
-  const user = useAppSelector((state) => state.user);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -76,6 +76,22 @@ const CheckoutPage = () => {
       console.error("Error al realizar la solicitud:", error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      setFormValues({ name: user.name, email: user.email });
+    }
+  }, [user]);
+
+  if (!user) {
+    return (
+      <main className="mx-auto flex max-w-7xl items-center justify-between  p-6 lg:px-8 lg:py-20 height_45">
+        <h2 className="text-base font-semibold leading-7 text-gray-900 text-center w-full">
+          Para continuar con la compra debe iniciar sesión
+        </h2>
+      </main>
+    );
+  }
   return (
     <main className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 lg:py-20">
       <form className="w-full" onSubmit={handleOnSubmit}>
@@ -88,20 +104,11 @@ const CheckoutPage = () => {
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-3">
+            <div className="sm:col-span-full">
               <Input
                 label={"Nombre:"}
                 name="name"
                 value={name}
-                onChange={onInputChange}
-              />
-            </div>
-
-            <div className="sm:col-span-3">
-              <Input
-                label={"Apellido:"}
-                name="lastname"
-                value={lastname}
                 onChange={onInputChange}
               />
             </div>

@@ -6,3 +6,7 @@
 .no-border{
     outline: none;
 }
+
+.height_45{
+    min-height: 45vh;
+}

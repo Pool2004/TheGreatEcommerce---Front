@@ -3,7 +3,8 @@ import Input from "@/components/Input";
 import Select from "@/components/Select";
 import useForm from "@/customHooks/useForm";
 import { useAppSelector } from "@/redux/hooks/hooks";
-import { useRouter } from "next/navigation";
+import { redirectUserTo } from "@/utils/utils";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const CreateAccount = () => {
@@ -89,6 +90,7 @@ const CreateAccount = () => {
         // Verificar el estado de la respuesta
         if (response.ok && response.status === 200) {
           toast.success(messsage);
+          router.push(redirectUserTo());
         } else {
           throw new Error("Problemas para crear la cuenta");
         }

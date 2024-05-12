@@ -11,6 +11,10 @@ const useForm = (initialState) => {
     });
   };
 
+  const setFormValues = (newValues) => {
+    setFormState({ ...formState, ...newValues });
+  };
+
   const onResetForm = () => {
     setFormState(initialState);
   };
@@ -20,6 +24,7 @@ const useForm = (initialState) => {
     formState,
     onInputChange,
     onResetForm,
+    setFormValues,
   };
 };
 
