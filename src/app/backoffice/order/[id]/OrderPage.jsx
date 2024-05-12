@@ -29,7 +29,7 @@ const OrderPage = ({ id }) => {
       <div>Nombre: {order?.idUsuario.nombre}</div>
       <div>Rol: {order?.idUsuario.rol}</div>
       <div>Telefono: {order?.idUsuario.telefono}</div>
-      <div>Tipo entrega: {order?.idUsuario.tipoEntrega}</div>
+      <div>Tipo entrega: {order?.tipoEntrega}</div>
     </main>
   );
 };
