@@ -1,5 +1,10 @@
 import { useAppDispatch } from "@/redux/hooks/hooks";
-import { removeFromCart, modifyItemQuantity } from "@/redux/slice/cartSlice";
+import {
+  removeFromCart,
+  modifyItemQuantity,
+  changeItemQuantity,
+  onBlurQuantity,
+} from "@/redux/slice/cartSlice";
 import { getPriceInCOP } from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +20,16 @@ const CartItem = ({ item }) => {
   const handleItemQuantity = (event) => {
     const name = event.target.name;
     dispatch(modifyItemQuantity({ name, id: item.idArticulo }));
+  };
+
+  const onChangeInput = (event) => {
+    const value = parseInt(event.target.value);
+    dispatch(changeItemQuantity({ value, id: item.idArticulo }));
+  };
+
+  const onBlurInput = (event) => {
+    const value = parseInt(event.target.value);
+    dispatch(onBlurQuantity({ value, id: item.idArticulo }));
   };
 
   return (
@@ -44,15 +59,24 @@ const CartItem = ({ item }) => {
             <div className="flex justify-between">
               <button
                 name="delete"
-                className="rounded-md bg-indigo-600 font-semibold text-white px-2 py-1"
+                className="rounded-md bg-indigo-600 font-semibold text-white px-3 py-1"
                 onClick={handleItemQuantity}
               >
                 -
               </button>
-              <div className="px-2 py-1">{item.cantidadComprar}</div>
+              <input
+                className="rounded-md w-20 text-center mx-1"
+                type="number"
+                onChange={onChangeInput}
+                onBlur={onBlurInput}
+                value={item.cantidadComprar}
+                min={0}
+                max={item.cantidad}
+              />
+              {/* <div className="px-2 py-1">{item.cantidadComprar}</div> */}
               <button
                 name="add"
-                className="rounded-md bg-indigo-600 font-semibold text-white px-2 py-1"
+                className="rounded-md bg-indigo-600 font-semibold text-white px-3 py-1"
                 onClick={handleItemQuantity}
               >
                 +

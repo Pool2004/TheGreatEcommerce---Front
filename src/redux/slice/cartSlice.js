@@ -90,9 +90,66 @@ export const cartSlice = createSlice({
       state.total = total;
       state.totalItems = totalItems;
     },
+
+    changeItemQuantity: (state, action) => {
+      const { value, id } = action.payload;
+
+      const items = state.items;
+
+      let total = 0;
+      let totalItems = 0;
+
+      const itemIndex = items.findIndex((item) => item.idArticulo === id);
+
+      items[itemIndex].cantidadComprar = value;
+
+      items.forEach((item) => {
+        total += item.precio * item.cantidadComprar;
+        totalItems += item.cantidadComprar;
+      });
+
+      state.items = items;
+      state.total = total;
+      state.totalItems = totalItems;
+    },
+
+    onBlurQuantity: (state, action) => {
+      const { value, id } = action.payload;
+
+      const items = state.items;
+
+      let total = 0;
+      let totalItems = 0;
+
+      const itemIndex = items.findIndex((item) => item.idArticulo === id);
+
+      if (isNaN(value)) {
+        items[itemIndex].cantidadComprar = 1;
+      } else if (value > items[itemIndex].cantidad) {
+        items[itemIndex].cantidadComprar = items[itemIndex].cantidad;
+      } else if (value < 1) {
+        items[itemIndex].cantidadComprar = 1;
+      } else {
+        items[itemIndex].cantidadComprar = value;
+      }
+
+      items.forEach((item) => {
+        total += item.precio * item.cantidadComprar;
+        totalItems += item.cantidadComprar;
+      });
+
+      state.items = items;
+      state.total = total;
+      state.totalItems = totalItems;
+    },
   },
 });
 
-export const { addToCart, removeFromCart, modifyItemQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  modifyItemQuantity,
+  changeItemQuantity,
+  onBlurQuantity,
+} = cartSlice.actions;
 export default createSlice.reducer;
