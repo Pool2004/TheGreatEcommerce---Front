@@ -142,6 +142,10 @@ export const cartSlice = createSlice({
       state.total = total;
       state.totalItems = totalItems;
     },
+
+    clearCart: (state, action) => {
+      return initialState;
+    },
   },
 });
 
@@ -151,5 +155,6 @@ export const {
   modifyItemQuantity,
   changeItemQuantity,
   onBlurQuantity,
+  clearCart,
 } = cartSlice.actions;
 export default createSlice.reducer;

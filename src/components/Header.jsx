@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { logout } from "@/redux/slice/userSlice";
+import { clearCart } from "@/redux/slice/cartSlice";
 
 const Header = () => {
   const { totalItems } = useAppSelector((state) => state.cart);
@@ -11,8 +12,9 @@ const Header = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(logout());
+    await dispatch(clearCart());
   };
 
   return (
