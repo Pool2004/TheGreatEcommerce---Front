@@ -17,10 +17,6 @@ const ManagerPage = () => {
     }
   }, [user]);
 
-  if (!user) {
-    return null;
-  }
-
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -37,6 +33,9 @@ const ManagerPage = () => {
 
   useEffect(() => {
     fetchOrders();
+    return () => {
+      return null;
+    };
   }, []);
 
   return (
