@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/redux/hooks/hooks";
 import { addToCart } from "@/redux/slice/cartSlice";
 import { getCategoryLabel, getPriceInCOP } from "@/utils/utils";
 import toast from "react-hot-toast";
+import TextArea from "@/components/TextArea";
 
 const ItemPage = ({ id }) => {
   const [item, setItem] = useState(null);
@@ -19,6 +20,10 @@ const ItemPage = ({ id }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleComent = (event) => {
+    setItem({ ...item, comentario: event.target.value });
   };
 
   useEffect(() => {
@@ -73,6 +78,15 @@ const ItemPage = ({ id }) => {
                   Categoria: {getCategoryLabel(item.idCategoria)}
                 </h3>
               </div>
+              {item.esPersonalizable ? (
+                <div className="mt-2">
+                  <TextArea
+                    label={"Ingresa información de personalización"}
+                    value={item.comentario}
+                    onChange={handleComent}
+                  />
+                </div>
+              ) : null}
 
               <button
                 onClick={addItemToCart}
