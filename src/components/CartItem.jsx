@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@/redux/hooks/hooks";
+import Modal from "react-modal";
 import {
   removeFromCart,
   modifyItemQuantity,
@@ -8,9 +9,10 @@ import {
 import { getPriceInCOP } from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const CartItem = ({ item }) => {
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useAppDispatch();
 
   const removeItemFromCart = () => {
@@ -85,6 +87,43 @@ const CartItem = ({ item }) => {
           </div>
 
           <div className="flex">
+            {item.esPersonalizable ? (
+              <div>
+                <button
+                  className="font-medium text-indigo-600 mr-5"
+                  onClick={() => setOpenModal(true)}
+                >
+                  Ver comentarios
+                </button>
+                <Modal
+                  isOpen={openModal}
+                  onRequestClose={() => setOpenModal(false)}
+                  style={{
+                    content: {
+                      top: "50%",
+                      left: "50%",
+                      right: "auto",
+                      bottom: "auto",
+                      marginRight: "-50%",
+                      transform: "translate(-50%, -50%)",
+                    },
+                  }}
+                >
+                  <div className="w-full min-h-16">
+                    <div className="flex justify-between">
+                      <h2 className="text-2xl font-bold">Comentarios</h2>
+                      <button onClick={() => setOpenModal(false)}>
+                        Cerrar
+                      </button>
+                    </div>
+                    <div className="mt-2">
+                      <div className="w-96">{item.comentario}</div>
+                    </div>
+                  </div>
+                </Modal>
+              </div>
+            ) : null}
+
             <button
               type="button"
               className="font-medium text-indigo-600 hover:text-indigo-500"
