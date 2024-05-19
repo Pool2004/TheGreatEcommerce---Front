@@ -6,6 +6,7 @@ const Input = ({
   value,
   onChange,
   isRequired,
+  disabled = false,
 }) => {
   const styleInput = type === "checkbox" ? " h-7 w-7" : "";
   return (
@@ -29,6 +30,7 @@ const Input = ({
             styleInput
           }
           required={isRequired ? true : false}
+          disabled={disabled ? true : false}
         />
       </div>
     </>

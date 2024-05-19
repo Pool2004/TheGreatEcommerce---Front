@@ -12,7 +12,7 @@ const ManagerPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || user.rol !== "Encargado") {
+    if (!user || user.rol !== "Encargado" || user.rol !== "Administrador") {
       router.push("/");
     }
   }, [user]);

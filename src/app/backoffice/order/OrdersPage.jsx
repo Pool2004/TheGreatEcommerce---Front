@@ -2,15 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { getPriceInCOP } from "@/utils/utils";
 import Link from "next/link";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import { useRouter } from "next/navigation";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
-
+  const user = useAppSelector((state) => state.user);
+  const router = useRouter();
   const fetchOrder = async () => {
     try {
       const response = await fetch("http://localhost:8080/orden/get/all");
       const jsonData = await response.json();
-      console.log(jsonData);
       setOrders(jsonData);
     } catch (error) {
       console.error("Error eeee:", error);
@@ -19,7 +21,17 @@ const OrdersPage = () => {
   };
 
   useEffect(() => {
+    if (
+      !user ||
+      (user && user.rol !== "Encargado" && user.rol !== "Administrador")
+    ) {
+      router.push("/");
+    }
+  }, [user]);
+
+  useEffect(() => {
     fetchOrder();
+
     return () => {
       return null;
     };
