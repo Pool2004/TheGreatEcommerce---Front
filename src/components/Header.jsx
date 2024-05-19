@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 import { Disclosure } from "@headlessui/react";
 import User from "./User";

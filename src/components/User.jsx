@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -9,7 +9,21 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { logout } from "@/redux/slice/userSlice";
 import { clearCart } from "@/redux/slice/cartSlice";
 
-const userNavigation = [{ name: "Ordenes", href: "/" }];
+const client = [{ name: "Mis ordenes", href: "/client/order" }];
+const manager = [
+  { name: "Ordenes", href: "/backoffice/order" },
+  { name: "Ordenes de personalización", href: "/backoffice/order" },
+];
+const Admin = [
+  { name: "Encargados", href: "/backoffice/manager" },
+  { name: "Diseñadores", href: "/backoffice/desginer" },
+  { name: "Ordenes", href: "/backoffice/order" },
+  { name: "Ordenes de personalización", href: "/backoffice/order" },
+];
+
+const designer = [
+  { name: "Ordenes de personalización", href: "/backoffice/order" },
+];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,10 +34,27 @@ const User = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
+  const [userNavigation, setUserNavigation] = useState([]);
+
   const handleLogout = () => {
     dispatch(clearCart());
     dispatch(logout());
   };
+
+  useEffect(() => {
+    if (user !== null) {
+      if (user.rol === "Cliente") {
+        setUserNavigation(client);
+      } else if (user.rol === "Encargado") {
+        setUserNavigation(manager);
+      } else if (user.rol === "Administrador") {
+        setUserNavigation(Admin);
+      } else {
+        setUserNavigation(designer);
+      }
+    }
+  }, [user]);
+
   return (
     <>
       {user !== null ? (
