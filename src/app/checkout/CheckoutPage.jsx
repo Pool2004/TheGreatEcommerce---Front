@@ -6,6 +6,7 @@ import useCities from "@/customHooks/useCities";
 import useForm from "@/customHooks/useForm";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const CheckoutPage = () => {
   const user = useAppSelector((state) => state.user);
