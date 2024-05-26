@@ -56,6 +56,7 @@ const CheckoutPage = () => {
             cantidad: item.cantidadComprar,
           };
         }),
+        estado: "Solicitada",
       };
 
       const response = await fetch("http://localhost:8080/orden/save", {
@@ -68,7 +69,46 @@ const CheckoutPage = () => {
 
       // Verificar el estado de la respuesta
       if (response.ok && response.status === 200) {
-        console.log("Orden creada con exito", response);
+        const message = (await response.text()).split("=");
+
+        if (message[1] !== null && Array.isArray(message)) {
+          const idOrden = parseInt(message[1]);
+
+          items.forEach(async (item) => {
+            if (item.esPersonalizable) {
+              const newPersonalizationOrden = {
+                idOrden: {
+                  idOrden: idOrden,
+                },
+                idComentario: {
+                  descripcion: item.comentario,
+                  fecha: today,
+                  idUsuario: {
+                    idUsuario: user.id,
+                  },
+                  reciboPago: "Pendiente",
+                },
+                suDiseniador: {
+                  idUsuario: null,
+                },
+              };
+
+              const newResponse = await fetch(
+                "http://localhost:8080/ordenPersonalizacion/save",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ ...newPersonalizationOrden }),
+                }
+              );
+              const ordenResponse = newResponse.json();
+              console.log(ordenResponse);
+            }
+          });
+        }
+        toast.success("Orden creado con exito");
       } else {
         console.log("algo paso");
       }
