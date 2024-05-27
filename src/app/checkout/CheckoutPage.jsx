@@ -70,53 +70,80 @@ const CheckoutPage = () => {
 
       // Verificar el estado de la respuesta
       if (response.ok && response.status === 200) {
-        // const message = (await response.text()).split("=");
+        const message = (await response.text()).split("=");
 
-        // if (message[1] !== null && Array.isArray(message)) {
-        //   const idOrden = parseInt(message[1]);
+        if (message[1] !== null && Array.isArray(message)) {
+          const idOrden = parseInt(message[1]);
 
-        //   items.forEach(async (item) => {
-        //     if (item.esPersonalizable) {
-        //       const newComent = {
-        //         descripcion: item.comentario,
-        //         fecha: today,
-        //         idUsuario: {
-        //           idUsuario: 1,
-        //         },
-        //       };
-        //       const newPersonalizationOrden = {
-        //         idOrden: {
-        //           idOrden: idOrden,
-        //         },
-        //         idComentario: {
-        //           descripcion: item.comentario,
-        //           fecha: today,
-        //           idUsuario: {
-        //             idUsuario: user.id,
-        //           },
-        //           reciboPago: "Pendiente",
-        //         },
-        //         suDiseniador: {
-        //           idUsuario: user.id,
-        //         },
-        //         imagenDisenio: "Prueba",
-        //       };
+          items.forEach(async (item) => {
+            if (item.esPersonalizable) {
+              const newComent = {
+                descripcion: item.comentario,
+                fecha: today,
+                idUsuario: {
+                  idUsuario: 1,
+                },
+              };
 
-        //       const newResponse = await fetch(
-        //         "http://localhost:8080/ordenPersonalizacion/save",
-        //         {
-        //           method: "POST",
-        //           headers: {
-        //             "Content-Type": "application/json",
-        //           },
-        //           body: JSON.stringify({ ...newPersonalizationOrden }),
-        //         }
-        //       );
-        //       const ordenResponse = newResponse.json();
-        //       console.log(ordenResponse);
-        //     }
-        //   });
-        // }
+              const commentResponse = await fetch(
+                "http://localhost:8080/comentario/save",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ ...newComent }),
+                }
+              );
+              const commentResponseAux = await commentResponse.text();
+              const idComment = parseInt(commentResponseAux.split(": ")[1]);
+              console.log(idComment);
+              const newPersonalizationOrden = {
+                idComentario: {
+                  descripcion: item.comentario,
+                  fecha: today,
+                  idUsuario: {
+                    idUsuario: user.id,
+                  },
+                  reciboPago: "Pendiente",
+                },
+                suDiseniador: {
+                  idUsuario: user.id,
+                },
+                imagenDisenio: "Prueba",
+
+                idOrden: {
+                  idOrden: idOrden,
+                },
+                idComentario: {
+                  idComentario: idComment,
+                  descripcion: item.comentario,
+                  fecha: today,
+                  idUsuario: {
+                    idUsuario: user.id,
+                  },
+                },
+                suDiseniador: {
+                  idUsuario: null,
+                },
+                imagenDisenio: "Prueba",
+              };
+              console.log(newPersonalizationOrden);
+              const newResponse = await fetch(
+                "http://localhost:8080/ordenPersonalizacion/save",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ ...newPersonalizationOrden }),
+                }
+              );
+              const ordenResponse = await newResponse.text();
+              console.log(ordenResponse);
+            }
+          });
+        }
         toast.success("Orden creado con exito");
       } else {
         console.log("algo paso");
